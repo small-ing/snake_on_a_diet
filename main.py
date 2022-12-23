@@ -15,6 +15,7 @@ pygame.font.init()
 MAIN_MENU_FONT = pygame.font.Font('koverwatch.ttf', 100)
 SMALL_MAIN_MENU_FONT = pygame.font.Font('koverwatch.ttf', 45)
 BUTTON_FONT = pygame.font.Font('bignoodletoo.ttf', 46)
+END_FONT = pygame.font.Font('bignoodletoo.ttf', 24)
 
 SPOOKY_FONT = pygame.font.Font('ghastly_panic.ttf', 240)
 SMALL_SPOOKY_FONT = pygame.font.Font('ghastly_panic.ttf', 50)
@@ -171,7 +172,7 @@ while True:
         mx, my = pygame.mouse.get_pos()
         #textobj = BUTTON_FONT.render("MEDIUM", 1, (0, 0, 0))
         #print(textobj.get_rect())
-        #print_text_size("You win I guess", SMALL_SPOOKY_FONT)
+        #print_text_size("his grandmother did this faster though", END_FONT)
 
         draw_text("Snake On A Diet", MAIN_MENU_FONT, (255, 255, 255), screen,
                   17, 0, 0)
@@ -344,11 +345,11 @@ while True:
     if not snake_segments:
         win_noise = pygame.mixer.Sound("Game_Assets/Sounds/jump.wav")
         screen.fill(PINK_COLOR)
-        draw_text("you win i guess", SMALL_SPOOKY_FONT, (255, 255, 255),
-                  screen, 166, 150, 0)
-        draw_text("Points: " + str(points), MAIN_MENU_FONT, (255, 255, 255),
-                  screen, 50, 250, 0)
-        draw_text('his grandmother did this faster though', SMALL_SPOOKY_FONT,
+        draw_text("you win i guess", MAIN_MENU_FONT, (255, 255, 255),
+                  screen, 8, 150, 0)
+        draw_text("Points: " + str(points), SMALL_MAIN_MENU_FONT,
+                      (255, 255, 255), screen, 25, 450, 0)
+        draw_text('his grandmother did this faster though', END_FONT,
                   (255, 255, 255), screen, 10, 0, 0)
         pygame.display.update()
         win_noise.play()
