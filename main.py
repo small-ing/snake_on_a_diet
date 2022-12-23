@@ -54,6 +54,11 @@ def set_difficulty():
 #Pre-Generates apple location
 apple_x = random.randrange(0, screen.get_width()) // 10 * 10
 apple_y = random.randrange(0, screen.get_height()) // 10 * 10
+apple2_x = random.randrange(0, screen.get_width()) // 10 * 10
+apple2_y = random.randrange(0, screen.get_height()) // 10 * 10
+apple3_x = random.randrange(0, screen.get_width()) // 10 * 10
+apple3_y = random.randrange(0, screen.get_height()) // 10 * 10
+
 RED_COLOR = (175, 0, 0)
 
 orange_x = random.randrange(0, screen.get_width()) // 10 * 10
@@ -66,6 +71,8 @@ head = pygame.Rect(
     snake_segments[-1][0], snake_segments[-1][1], 10, 10
 )  #Intuplet code, This variable should store the front of the snake in pygame.Rect() format (Hint: Use snake_segments)
 apple = pygame.Rect(apple_x, apple_y, 10, 10)
+apple2 = pygame.Rect(apple2_x, apple2_y, 10, 10)
+apple3 = pygame.Rect(apple3_x, apple3_y, 10, 10)
 orange = pygame.Rect(orange_x, orange_y, 10, 10)
 
 
@@ -225,7 +232,11 @@ while True:
         clock.tick(10)
 
     screen.fill((66, 100, 40))
-    pygame.draw.rect(screen, (255, 255, 255), (0, 0, 500, 500), 2)
+    
+    for i in range(0,510,10):
+        for j in range(0, 510,10):
+            pygame.draw.rect(screen, (72, 110, 44), (0, 0, i, j), 1)
+    
     #print("Easy:" + str(easy))
     #print("Medium:" + str(medium))
     #print("Hard:" + str(hard))
@@ -236,6 +247,8 @@ while True:
     '''
     # Surface, (R,G,B), Rect (x,y,10,10)
     pygame.draw.rect(screen, RED_COLOR, (apple_x, apple_y, 10, 10), 0, 2)
+    pygame.draw.rect(screen, RED_COLOR, (apple2_x, apple2_y, 10, 10), 0, 2)
+    pygame.draw.rect(screen, RED_COLOR, (apple3_x, apple3_y, 10, 10), 0, 2)
     pygame.draw.rect(screen, ORANGE_COLOR, (orange_x, orange_y, 10, 10), 0, 5)
 
     #Snake movement
@@ -272,6 +285,14 @@ while True:
             orange_x, orange_y = fruits(orange_x, orange_y)
             points += 1000  #Generates new position for oranges
             del snake_segments[:21]  # [start=0:stop=end:step=1]
+        elif pygame.Rect.colliderect(head, apple2):
+            apple2_x, apple2_y = fruits(apple2_x, apple2_y)
+            fruit_sound.play()
+            points -= 200  #Generates new position for apples
+        elif pygame.Rect.colliderect(head, apple3):
+            apple3_x, apple3_y = fruits(apple3_x, apple3_y)
+            fruit_sound.play()
+            points -= 200  #Generates new position for apples
         else:
             del snake_segments[0]  #Deletes old position
     elif medium:  #if medium
@@ -285,9 +306,16 @@ while True:
             fruit_sound.play()
             orange_x, orange_y = fruits(
                 orange_x, orange_y)  #Generates new position for oranges
-            points += 500
+            points += 1000
             del snake_segments[:11]  # [start=0:stop=end:step=1]
-
+        elif pygame.Rect.colliderect(head, apple2):
+            apple2_x, apple2_y = fruits(apple2_x, apple2_y)
+            fruit_sound.play()
+            points -= 200  #Generates new position for apples
+        elif pygame.Rect.colliderect(head, apple3):
+            apple3_x, apple3_y = fruits(apple3_x, apple3_y)
+            fruit_sound.play()
+            points -= 200  #Generates new position for apples
         else:
             del snake_segments[0]  #Deletes old position
     else:  # easy mode
@@ -302,6 +330,14 @@ while True:
                 orange_x, orange_y)  #Generates new position for oranges
             points += 1000
             del snake_segments[:6]  # [start=0:stop=end:step=1]
+        elif pygame.Rect.colliderect(head, apple2):
+            apple2_x, apple2_y = fruits(apple2_x, apple2_y)
+            fruit_sound.play()
+            points -= 200  #Generates new position for apples
+        elif pygame.Rect.colliderect(head, apple3):
+            apple3_x, apple3_y = fruits(apple3_x, apple3_y)
+            fruit_sound.play()
+            points -= 200  #Generates new position for apples
         else:
             del snake_segments[0]  #Deletes old position
 
@@ -352,7 +388,7 @@ while True:
     if points != 0:
         points -= 1
     draw_text("Points: " + str(points), SMALL_MAIN_MENU_FONT, (255, 255, 255),
-                  screen, 50, 0, 0)
+                  screen, 0, 0, 0)
     pygame.display.update()
     if easy:
         clock.tick(15)
